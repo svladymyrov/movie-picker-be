@@ -1,0 +1,11 @@
+name: movie-picker
+
+services:
+  db:
+    image: postgres:14
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret!
+      POSTGRES_DB: movie_picker
