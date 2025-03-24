@@ -9,3 +9,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret!
       POSTGRES_DB: movie_picker
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
