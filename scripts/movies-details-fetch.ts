@@ -6,16 +6,19 @@ const prisma = new PrismaClient();
 const API_URL = 'https://api.themoviedb.org/3/movie';
 const BATCH_SIZE = 40;
 
-function asyncDebounce(func, wait) {
-  const debounced = _.debounce((resolve, reject, args) => {
+function asyncDebounce<F extends (...args: any[]) => Promise<any>>(
+  func: F,
+  wait?: number,
+) {
+  const debounced = _.debounce((resolve, reject, args: Parameters<F>) => {
     func(...args)
       .then(resolve)
       .catch(reject);
   }, wait);
-  return (...args) =>
+  return (...args: Parameters<F>): ReturnType<F> =>
     new Promise((resolve, reject) => {
       debounced(resolve, reject, args);
-    });
+    }) as ReturnType<F>;
 }
 
 async function getTmdbIds(
